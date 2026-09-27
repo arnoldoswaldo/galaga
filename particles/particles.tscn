@@ -1,0 +1,63 @@
+[gd_scene format=3 uid="uid://8hww7jke8dk2"]
+
+[sub_resource type="GDScript" id="GDScript_x8s1x"]
+script/source = "extends Node2D
+
+@export var stars_number: int = 80
+@export var star_size:float = 2.5
+@export var speed = 40.0
+
+var stars = []
+var tiempo_acumulado: float = 0.0
+var contador = 1
+
+
+
+
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	var size = get_viewport_rect().size
+		
+	for i in range(stars_number):
+		stars.append({ 
+			\"position\": Vector2(randf_range(star_size,size.x - star_size),randf_range(star_size,size.y - star_size)),
+			\"speed\": speed,
+			\"size\": star_size,
+			\"color\": Color.from_hsv(randf(), 1.0, 1.0, 1.0),
+			\"visible\": randi_range(1,4)
+		})
+	
+	queue_redraw()
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	var height = get_viewport_rect().size.y
+	
+	tiempo_acumulado += delta
+	
+	if tiempo_acumulado >= 0.5:
+		tiempo_acumulado -= 0.5
+		contador = (contador % 4) + 1
+	
+	for star in stars:
+		star.position.y += star.speed * delta
+		if star.position.y > height:
+			star.position.y = 0
+	queue_redraw()
+
+func _draw() -> void:
+	for star in stars:
+		if star.visible == contador:
+			draw_circle(
+				star.position,
+				star.size,
+				star.color
+			)
+		
+"
+
+[node name="particles" type="Node2D" unique_id=925536109]
+script = SubResource("GDScript_x8s1x")
+stars_number = 120

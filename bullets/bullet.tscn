@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://dbing821mfs0n"]
+
+[ext_resource type="Texture2D" uid="uid://pr63foojlul0" path="res://Arcade - Galaga - Miscellaneous - General Sprites.png" id="1_tnxwn"]
+[ext_resource type="Script" uid="uid://b0d8bfqxe5tq2" path="res://bullets/bullet.gd" id="1_wo3kc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1ff5c"]
+size = Vector2(3, 8)
+
+[node name="CharacterBody2D" type="CharacterBody2D" unique_id=753359927]
+collision_layer = 2
+script = ExtResource("1_wo3kc")
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=471626331]
+texture = ExtResource("1_tnxwn")
+region_enabled = true
+region_rect = Rect2(307, 136, 16, 16)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1905178724]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_1ff5c")
+metadata/_edit_group_ = true

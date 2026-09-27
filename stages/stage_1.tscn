@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://cbvuvnrcgvog6"]
+
+[ext_resource type="PackedScene" uid="uid://bogmtucwfiysn" path="res://player/gyaraga.tscn" id="1_tksfr"]
+[ext_resource type="PackedScene" uid="uid://8hww7jke8dk2" path="res://particles/particles.tscn" id="2_p6prp"]
+
+[node name="Stage1" type="Node2D" unique_id=1139488492]
+
+[node name="particles" parent="." unique_id=925536109 instance=ExtResource("2_p6prp")]
+stars_number = 600
+star_size = 1.0
+speed = 100.0
+
+[node name="Gyaraga" parent="." unique_id=461259849 instance=ExtResource("1_tksfr")]
