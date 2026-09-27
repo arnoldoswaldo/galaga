@@ -29,5 +29,4 @@ func _ready():
 	var viewport_size = get_viewport_rect().size
 	var rect = $Sprite2D.get_rect()
 	var half_width = (rect.size.x * scale.x)/ 2.0
-	
 	position = Vector2(viewport_size.x / 2.0, viewport_size.y - (4*half_width))
