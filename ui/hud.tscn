@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://bqx2nkkm2fy5w"]
+
+[node name="HUD" type="CanvasLayer" unique_id=1557569576]
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=658645982]
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+accessibility_region = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" unique_id=916727396]
+top_level = true
+propagate_maximum_size = false
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_visual_only = false
+localize_numeral_system = false
+theme_override_constants/separation = 4
+accessibility_region = true
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer" unique_id=1709244404]
+layout_mode = 2
+text = "Score O"
+
+[node name="Control" type="Control" parent="MarginContainer/HBoxContainer" unique_id=31891784]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="MarginContainer/HBoxContainer" unique_id=377158663]
+layout_mode = 2
+text = "\"Lives 3\""

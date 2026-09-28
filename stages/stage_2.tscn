@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://bxl0us844ug0"]
+
+[ext_resource type="Script" uid="uid://bvmahi0vskrx0" path="res://stages/stage_2.gd" id="1"]
+[ext_resource type="PackedScene" uid="uid://bogmtucwfiysn" path="res://player/gyaraga.tscn" id="2_ctd0f"]
+[ext_resource type="PackedScene" uid="uid://8hww7jke8dk2" path="res://particles/particles.tscn" id="3_daspq"]
+[ext_resource type="Script" uid="uid://owvfwv5qm7md" path="res://stages/path_follow_2d.gd" id="4_c6umw"]
+[ext_resource type="PackedScene" uid="uid://dhj5a7o41uv2f" path="res://enemies/enemy.tscn" id="5_txogb"]
+[ext_resource type="PackedScene" uid="uid://bqx2nkkm2fy5w" path="res://ui/hud.tscn" id="6_txogb"]
+[ext_resource type="Script" uid="uid://c785s4c383qrv" path="res://stages/attack_timer.gd" id="7_85jxm"]
+[ext_resource type="AudioStream" uid="uid://b72s6xwpou277" path="res://assets/sounds/start.wav" id="8_013ri"]
+
+[sub_resource type="Curve2D" id="Curve2D_85jxm"]
+
+[node name="Stage2" type="Node2D" unique_id=221879084]
+script = ExtResource("1")
+
+[node name="Enemies" type="Node2D" parent="." unique_id=763049619]
+
+[node name="EnemyPath_1" type="Path2D" parent="Enemies" unique_id=1130477719]
+curve = SubResource("Curve2D_85jxm")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Enemies/EnemyPath_1" unique_id=1710548748]
+texture_filter = 1
+script = ExtResource("4_c6umw")
+
+[node name="Enemy" parent="Enemies/EnemyPath_1/PathFollow2D" unique_id=1038890946 instance=ExtResource("5_txogb")]
+
+[node name="StageLabel" type="Label" parent="." unique_id=1680095748]
+offset_left = 240.0
+offset_top = 210.0
+offset_right = 440.0
+offset_bottom = 233.0
+text = "Stage 2"
+horizontal_alignment = 1
+vertical_alignment = 1
+clip_text = true
+
+[node name="Gyaraga" parent="." unique_id=461259849 instance=ExtResource("2_ctd0f")]
+
+[node name="particles" parent="." unique_id=925536109 instance=ExtResource("3_daspq")]
+
+[node name="HUD" parent="." unique_id=1557569576 instance=ExtResource("6_txogb")]
+
+[node name="AttackTimer" type="Timer" parent="." unique_id=851024081]
+wait_time = 1.5
+autostart = true
+script = ExtResource("7_85jxm")
+
+[node name="BackgroundMusic" type="AudioStreamPlayer" parent="." unique_id=1705662434]
+stream = ExtResource("8_013ri")
+pitch_scale = 1.06
+autoplay = true

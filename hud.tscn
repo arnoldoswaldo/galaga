@@ -1,0 +1,46 @@
+[gd_scene format=3 uid="uid://dadtxcx2q6sko"]
+
+[sub_resource type="GDScript" id="GDScript_n2snw"]
+script/source = "extends CanvasLayer
+
+@onready var score_label = $MarginContainer/HBoxContainer/ScoreLabel
+@onready var lives_label = $MarginContainer/HBoxContainer/LivesLabel
+
+func update_score(new_score: int):
+	score_label.text = \"SCORE: \" + str(new_score)
+
+func update_lives(lives: int):
+	lives_label.text = \"LIVES: \" + str(lives)
+	if lives <= 0:
+		show_game_over()
+
+func show_game_over():
+	# Aquí puedes mostrar un mensaje de Game Over
+	pass
+"
+
+[node name="HUD" type="CanvasLayer" unique_id=1557569576]
+script = SubResource("GDScript_n2snw")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=658645982]
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+accessibility_region = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" unique_id=916727396]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer" unique_id=1354679637]
+layout_mode = 2
+text = "\"SCORE 0\""
+
+[node name="Control" type="Control" parent="MarginContainer/HBoxContainer" unique_id=1260484510]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="MarginContainer/HBoxContainer" unique_id=1008205720]
+layout_mode = 2
+text = "\"LIVES 3\""

@@ -1,0 +1,12 @@
+Label
+BoxContainer
+CanvasLayer
+AudioStreamPlayer
+Timer
+AudioStreamPlayer2D
+Control
+HBoxContainer
+MarginContainer
+PathFollow2D
+Path2D
+Sprite2D

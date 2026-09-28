@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://bogmtucwfiysn"]
+
+[ext_resource type="Texture2D" uid="uid://pr63foojlul0" path="res://Arcade - Galaga - Miscellaneous - General Sprites.png" id="1_6w5c4"]
+[ext_resource type="Script" uid="uid://qt8vpomt57me" path="res://player/gyaraga.gd" id="1_ne7mm"]
+[ext_resource type="AudioStream" uid="uid://dnxq66jq160qp" path="res://assets/sounds/fire.wav" id="3_bfss3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_neiy4"]
+size = Vector2(15, 16)
+
+[node name="Gyaraga" type="CharacterBody2D" unique_id=461259849]
+scale = Vector2(3, 3)
+slide_on_ceiling = false
+script = ExtResource("1_ne7mm")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=90930975]
+texture_filter = 5
+texture = ExtResource("1_6w5c4")
+region_enabled = true
+region_rect = Rect2(109, 1, 16, 16)
+region_filter_clip_enabled = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=816038838]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_neiy4")
+
+[node name="Muzzle" type="Marker2D" parent="." unique_id=141444524]
+position = Vector2(0, -8)
+
+[node name="ShotSound" type="AudioStreamPlayer2D" parent="." unique_id=1056986257]
+stream = ExtResource("3_bfss3")
