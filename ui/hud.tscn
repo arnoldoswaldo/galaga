@@ -24,13 +24,16 @@ localize_numeral_system = false
 theme_override_constants/separation = 4
 accessibility_region = true
 
-[node name="Label" type="Label" parent="MarginContainer/HBoxContainer" unique_id=1709244404]
+[node name="ScoreLabel" type="Label" parent="MarginContainer/HBoxContainer" unique_id=1709244404]
+visible = false
 layout_mode = 2
 text = "Score O"
 
 [node name="Control" type="Control" parent="MarginContainer/HBoxContainer" unique_id=31891784]
+visible = false
 layout_mode = 2
 
-[node name="Label2" type="Label" parent="MarginContainer/HBoxContainer" unique_id=377158663]
+[node name="LivesLabel" type="Label" parent="MarginContainer/HBoxContainer" unique_id=377158663]
+visible = false
 layout_mode = 2
 text = "\"Lives 3\""

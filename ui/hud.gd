@@ -1,11 +1,25 @@
 extends CanvasLayer
 
+@onready var score_label: Label = $ScoreLabel
+@onready var lives_label: Label = $LivesLabel
+@onready var game_over_label: Label = $GameOverLabel
 
-# Called when the node enters the scene tree for the first time.
+
 func _ready() -> void:
-	pass # Replace with function body.
+	update_score(0)
+	update_lives(3)
+
+	game_over_label.visible = false
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+func update_score(value: int) -> void:
+	score_label.text = "SCORE: " + str(value)
+
+
+func update_lives(value: int) -> void:
+	lives_label.text = "LIVES: " + str(value)
+
+
+func show_game_over() -> void:
+	game_over_label.text = "GAME OVER"
+	game_over_label.visible = true

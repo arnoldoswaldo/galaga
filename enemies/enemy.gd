@@ -1,8 +1,6 @@
 extends Area2D
 
-
 signal enemy_destroyed(points_value: int)
-
 
 enum State {
 	ENTERING,
@@ -10,7 +8,6 @@ enum State {
 	ATTACKING,
 	RETURNING
 }
-
 
 enum EnemyType {
 	BOSS,
@@ -20,10 +17,8 @@ enum EnemyType {
 	MOMIJI
 }
 
-
 @export var speed := 100.0
 @export var points := 100
-
 
 var state := State.FORMATION
 var enemy_type := EnemyType.YAKO
@@ -34,14 +29,18 @@ var attack_direction := Vector2.ZERO
 var attack_time := 0.0
 var attack_phase := 0.0
 
-
-# Variables para la entrada
+# Entrada de los enemigos
 var entry_time := 0.0
 var entry_duration := 2.5
 
 var entry_start := Vector2.ZERO
 var entry_target := Vector2.ZERO
 
+# Evita procesar varios impactos al mismo tiempo
+var is_being_hit := false
+
+# Bala enemiga
+var enemy_bullet_scene = preload("res://bullets/enemy_bullet.tscn")
 
 @onready var sprite: Sprite2D = $Sprite2D
 
@@ -57,7 +56,6 @@ var enemy_textures: Array[Texture2D] = [
 
 
 func _ready() -> void:
-
 	add_to_group("enemies")
 
 	sprite.visible = true
@@ -68,7 +66,6 @@ func _ready() -> void:
 
 
 func configure(type: int, formation_pos: Vector2) -> void:
-
 	enemy_type = type
 	formation_position = formation_pos
 	global_position = formation_pos
@@ -81,7 +78,6 @@ func configure(type: int, formation_pos: Vector2) -> void:
 
 
 func start_entry(start_position: Vector2, target_position: Vector2) -> void:
-
 	entry_start = start_position
 	formation_position = target_position
 
@@ -92,13 +88,11 @@ func start_entry(start_position: Vector2, target_position: Vector2) -> void:
 
 
 func _process(delta: float) -> void:
-
 	if state == State.ENTERING:
 		update_entry(delta)
 
 
 func update_entry(delta: float) -> void:
-
 	entry_time += delta
 
 	var t: float = entry_time / entry_duration
@@ -116,11 +110,42 @@ func update_entry(delta: float) -> void:
 	global_position = Vector2(x, y)
 
 	if t >= 1.0:
-
 		global_position = target
 		state = State.FORMATION
 
+
+
+func start_attack() -> void:
+	print("ENEMIGO INICIANDO ATAQUE")
+
+	if state != State.FORMATION:
+		print("ENEMIGO NO ESTA EN FORMATION")
+		return
+
+	state = State.ATTACKING
+
+	shoot()
+
+
+func shoot() -> void:
+	print("ENEMIGO DISPARANDO")
+
+	var bullet = enemy_bullet_scene.instantiate()
+
+	get_tree().current_scene.add_child(bullet)
+
+	bullet.global_position = global_position
+
+	print("BALA CREADA: ", bullet)
+	print("POSICION DE BALA: ", bullet.global_position)
+	print("PADRE DE BALA: ", bullet.get_parent())
+
+
 func hit() -> void:
+	if is_being_hit:
+		return
+
+	is_being_hit = true
 
 	enemy_destroyed.emit(points)
 

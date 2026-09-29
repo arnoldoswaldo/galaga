@@ -15,12 +15,15 @@ const ENEMY_SCENE := preload("res://enemies/enemy.tscn")
 
 
 var enemies: Array[Node] = []
+var score := 0
 
-
+@onready var attack_timer: Timer = get_node("Attack Timer")
 func _ready() -> void:
-
 	print("STAGE 2 INICIADO")
 
+	$Gyaraga.lives_changed.connect($HUD.update_lives)
+	$Gyaraga.player_destroyed.connect(_on_player_destroyed)
+	
 	$StageLabel.text = "STAGE 2"
 	$StageLabel.visible = true
 
@@ -29,6 +32,9 @@ func _ready() -> void:
 	$StageLabel.visible = false
 
 	create_formation()
+
+	$"AttackTimer".start()
+		
 
 
 func create_formation() -> void:
@@ -49,9 +55,11 @@ func create_formation() -> void:
 			$Enemies.add_child(enemy)
 
 			enemy.configure(
-				enemy_type,
-				formation_pos
-			)
+			enemy_type,
+			formation_pos
+		)
+
+			enemy.enemy_destroyed.connect(_on_enemy_destroyed)
 
 			enemies.append(enemy)
 
@@ -69,7 +77,12 @@ func create_formation() -> void:
 			)
 
 	print("Enemigos creados: ", enemies.size())
+func _on_enemy_destroyed(points_value: int) -> void:
+	score += points_value
 
+	$HUD.update_score(score)
+
+	print("Score: ", score)
 
 func get_enemy_type(row: int, column: int) -> int:
 
@@ -100,3 +113,11 @@ func show_stage_label() -> void:
 	await get_tree().create_timer(2.0).timeout
 
 	stage_label.visible = false
+func _on_player_destroyed() -> void:
+	print("GAME OVER")
+
+	$AttackTimer.stop()
+
+	$HUD.show_game_over()
+
+	await get_tree().create_timer(3.0).timeout

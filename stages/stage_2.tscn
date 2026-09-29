@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://dhj5a7o41uv2f" path="res://enemies/enemy.tscn" id="5_txogb"]
 [ext_resource type="PackedScene" uid="uid://bqx2nkkm2fy5w" path="res://ui/hud.tscn" id="6_txogb"]
 [ext_resource type="Script" uid="uid://c785s4c383qrv" path="res://stages/attack_timer.gd" id="7_85jxm"]
+[ext_resource type="Script" uid="uid://bqiavg8j8tp1u" path="res://ui/hud.gd" id="7_mghc5"]
 [ext_resource type="AudioStream" uid="uid://b72s6xwpou277" path="res://assets/sounds/start.wav" id="8_013ri"]
 
 [sub_resource type="Curve2D" id="Curve2D_85jxm"]
@@ -24,26 +25,62 @@ texture_filter = 1
 script = ExtResource("4_c6umw")
 
 [node name="Enemy" parent="Enemies/EnemyPath_1/PathFollow2D" unique_id=1038890946 instance=ExtResource("5_txogb")]
+position = Vector2(222, -36)
 
 [node name="StageLabel" type="Label" parent="." unique_id=1680095748]
-offset_left = 240.0
-offset_top = 210.0
-offset_right = 440.0
-offset_bottom = 233.0
+offset_left = 111.0
+offset_top = 212.0
+offset_right = 311.0
+offset_bottom = 235.0
 text = "Stage 2"
 horizontal_alignment = 1
 vertical_alignment = 1
 clip_text = true
 
 [node name="Gyaraga" parent="." unique_id=461259849 instance=ExtResource("2_ctd0f")]
+collision_mask = 9
 
 [node name="particles" parent="." unique_id=925536109 instance=ExtResource("3_daspq")]
+position = Vector2(-8, 2)
 
 [node name="HUD" parent="." unique_id=1557569576 instance=ExtResource("6_txogb")]
+script = ExtResource("7_mghc5")
+
+[node name="ScoreLabel" type="Label" parent="HUD" unique_id=455184647]
+custom_minimum_size = Vector2(20, 15)
+offset_left = 7.0
+offset_top = 1.0
+offset_right = 76.0
+offset_bottom = 24.0
+text = "SCORE: 0"
+
+[node name="Control" type="Control" parent="HUD" unique_id=463544063]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="LivesLabel" type="Label" parent="HUD" unique_id=1308700746]
+custom_minimum_size = Vector2(560, 15)
+offset_left = 367.0
+offset_top = -1.0
+offset_right = 927.0
+offset_bottom = 22.0
+text = "LIVES: 3"
+
+[node name="GameOverLabel" type="Label" parent="HUD" unique_id=1119112322]
+visible = false
+offset_left = 229.0
+offset_top = 248.0
+offset_right = 321.0
+offset_bottom = 271.0
+text = "!! GAME OVER !!"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="AttackTimer" type="Timer" parent="." unique_id=851024081]
-wait_time = 1.5
-autostart = true
+wait_time = 2.0
 script = ExtResource("7_85jxm")
 
 [node name="BackgroundMusic" type="AudioStreamPlayer" parent="." unique_id=1705662434]

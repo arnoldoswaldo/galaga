@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="Galaga2D"
+config/name="Galaga"
 run/main_scene="uid://bxl0us844ug0"
 config/features=PackedStringArray("4.7")
 
