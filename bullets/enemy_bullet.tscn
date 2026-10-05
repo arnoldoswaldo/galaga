@@ -10,8 +10,9 @@ collision_layer = 8
 script = ExtResource("1")
 
 [node name="Body" type="Polygon2D" parent="." unique_id=1130978812]
+modulate = Color(0.97441036, 0.9851838, 0.99951416, 1)
 antialiased = true
-polygon = PackedVector2Array(-4, -8, 4, -8, 4, 8, -4, 8)
+polygon = PackedVector2Array(-2, -7, 2, -7, 2, 7, -2, 7)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1214086089]
 position = Vector2(-2, 0)

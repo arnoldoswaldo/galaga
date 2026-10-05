@@ -11,7 +11,6 @@ var is_destroyed := false
 signal lives_changed(current_lives: int)
 signal player_destroyed
 
-
 func _ready() -> void:
 	add_to_group("player")
 
@@ -70,7 +69,6 @@ func _physics_process(delta: float) -> void:
 		viewport_size.x - half_width
 	)
 
-
 func hit_by_enemy() -> void:
 	if is_destroyed:
 		return
@@ -86,7 +84,6 @@ func hit_by_enemy() -> void:
 	else:
 		reset_position()
 
-
 func reset_position() -> void:
 	var viewport_size = get_viewport_rect().size
 	var rect = $Sprite2D.get_rect()
@@ -96,7 +93,6 @@ func reset_position() -> void:
 		viewport_size.x / 2.0,
 		viewport_size.y - (4 * half_width)
 	)
-
 
 func destroy_player() -> void:
 	is_destroyed = true

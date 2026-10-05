@@ -1,0 +1,53 @@
+[gd_scene format=3 uid="uid://c3xkhuec23iqi"]
+
+[ext_resource type="Script" uid="uid://dsjpktts0thfx" path="res://scripts/main.gd" id="1_ig7tw"]
+[ext_resource type="PackedScene" uid="uid://8hww7jke8dk2" path="res://particles/particles.tscn" id="2_0xm2m"]
+
+[node name="main" type="Node2D" unique_id=1257591521]
+script = ExtResource("1_ig7tw")
+
+[node name="StageContainer" type="Node2D" parent="." unique_id=191333026]
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=307108171]
+
+[node name="WelcomePanel" type="ColorRect" parent="UI" unique_id=2051331901]
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(0, 0, 0, 1)
+
+[node name="Titlelabel" type="Label" parent="UI" unique_id=1696638483]
+offset_left = 207.99998
+offset_top = 140.99998
+offset_right = 247.99998
+offset_bottom = 163.99998
+scale = Vector2(1.0772876, 0.89769334)
+layout_direction = 1
+text = "GALAGA"
+horizontal_alignment = 1
+vertical_alignment = 2
+autowrap_mode = 2
+
+[node name="SubtitleLabel" type="Label" parent="UI" unique_id=284025931]
+offset_left = 158.0
+offset_top = 182.0
+offset_right = 298.0
+offset_bottom = 205.0
+text = "GALACTIC ATTACK"
+
+[node name="InstructionLabel" type="Label" parent="UI" unique_id=389959709]
+offset_left = 174.0
+offset_top = 226.0
+offset_right = 285.0
+offset_bottom = 275.0
+text = "MOVE       ←  →
+FIRE       SPACE"
+
+[node name="StartLabel" type="Label" parent="UI" unique_id=1275517275]
+offset_left = 177.0
+offset_top = 287.0
+offset_right = 276.0
+offset_bottom = 310.0
+scale = Vector2(1.0942631, 1)
+text = "PRESS START"
+
+[node name="particles" parent="." unique_id=925536109 instance=ExtResource("2_0xm2m")]
