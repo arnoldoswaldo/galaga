@@ -4,6 +4,10 @@ const ENEMY_SCENE := preload("res://enemies/enemy.tscn")
 
 @export var rows := 3
 @export var columns := 7
+@export var stage_number := 2
+@export var attack_interval := 1.5
+@export var max_attacks := 3
+var starting_lives := 3
 
 @export var start_x := 75.0
 @export var start_y := 100.0
@@ -14,10 +18,16 @@ const ENEMY_SCENE := preload("res://enemies/enemy.tscn")
 var enemies: Array[Node] = []
 var score := 0
 var enemies_destroyed := 0
-var stage_completed := false
+var is_stage_completed := false
+signal stage_completed
 signal game_over
 
 func _ready() -> void:
+	$Gyaraga.lives = starting_lives
+	$HUD.update_lives(starting_lives)
+	$HUD.update_score(score)
+	$AttackTimer.wait_time = attack_interval
+	$AttackTimer.max_simultaneous_attacks = max_attacks
 	print("STAGE 2 INICIADO")
 
 	# Conectar las vidas del jugador con el HUD
@@ -27,7 +37,7 @@ func _ready() -> void:
 	$Gyaraga.player_destroyed.connect(_on_player_destroyed)
 
 	# Mostrar título del Stage
-	$StageLabel.text = "STAGE 2"
+	$StageLabel.text = "STAGE %d" % stage_number
 	$StageLabel.visible = true
 
 	# Esperar antes de iniciar la formación
@@ -136,11 +146,11 @@ func _on_enemy_destroyed(points_value: int) -> void:
 	)
 
 	# Verificar si todos los enemigos fueron destruidos
-	if enemies_destroyed >= rows * columns and not stage_completed:
+	if enemies_destroyed >= rows * columns and not is_stage_completed:
 		complete_stage()
 
 func complete_stage() -> void:
-	stage_completed = true
+	is_stage_completed = true
 
 	print("================================")
 	print("STAGE 2 COMPLETADO")
@@ -150,6 +160,8 @@ func complete_stage() -> void:
 	$AttackTimer.stop()
 	$StageLabel.text = "STAGE COMPLETE"
 	$StageLabel.visible = true
+	await get_tree().create_timer(2.0).timeout
+	stage_completed.emit()
 func _on_player_destroyed() -> void:
 	print("GAME OVER: señal recibida del jugador")
 
