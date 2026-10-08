@@ -8,6 +8,42 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_neiy4"]
 size = Vector2(15, 16)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_0aqha"]
+atlas = ExtResource("1_6w5c4")
+region = Rect2(140, 0, 35, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n4mea"]
+atlas = ExtResource("1_6w5c4")
+region = Rect2(175, 0, 35, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lm1k5"]
+atlas = ExtResource("1_6w5c4")
+region = Rect2(210, 0, 35, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xfv68"]
+atlas = ExtResource("1_6w5c4")
+region = Rect2(245, 0, 35, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0aqha"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0aqha")
+}, {
+"duration": 1.08,
+"texture": SubResource("AtlasTexture_n4mea")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lm1k5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xfv68")
+}],
+"loop": 2,
+"name": &"Explosion",
+"speed": 10.0
+}]
+
 [node name="Gyaraga" type="CharacterBody2D" unique_id=461259849]
 scale = Vector2(3, 3)
 collision_mask = 8
@@ -34,3 +70,10 @@ stream = ExtResource("3_bfss3")
 [node name="ExplosionSound" type="AudioStreamPlayer" parent="." unique_id=2023298105]
 stream = ExtResource("4_0aqha")
 pitch_scale = 1.08
+
+[node name="Explosion" type="AnimatedSprite2D" parent="." unique_id=119538879]
+visible = false
+scale = Vector2(0.8, 0.8)
+sprite_frames = SubResource("SpriteFrames_0aqha")
+animation = &"Explosion"
+frame_progress = 0.40497616

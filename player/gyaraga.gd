@@ -99,10 +99,19 @@ func destroy_player() -> void:
 
 	velocity = Vector2.ZERO
 
-	player_destroyed.emit()
-
-	$ExplosionSound.play()
-
+	# Ocultar la nave
 	$Sprite2D.visible = false
 
-	await $ExplosionSound.finished
+	# Mostrar y reproducir la explosión
+	$Explosion.visible = true
+	$Explosion.frame = 0
+	$Explosion.play()
+
+	# Reproducir sonido
+	$ExplosionSound.play()
+
+	# Esperar a que termine la explosión
+	await get_tree().create_timer(0.5).timeout
+
+	# Avisar a Stage2
+	player_destroyed.emit()

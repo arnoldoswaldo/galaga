@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dsjpktts0thfx" path="res://scripts/main.gd" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://8hww7jke8dk2" path="res://particles/particles.tscn" id="2_0xm2m"]
+[ext_resource type="Script" uid="uid://clkchx34mjkha" path="res://pause_controller.gd" id="3_h2yge"]
 
 [node name="main" type="Node2D" unique_id=1257591521]
 script = ExtResource("1_ig7tw")
@@ -40,14 +41,41 @@ offset_top = 226.0
 offset_right = 285.0
 offset_bottom = 275.0
 text = "MOVE       ←  →
-FIRE       SPACE"
+FIRE       SPACE
+START    Enter
+PAUSE    Esc"
 
 [node name="StartLabel" type="Label" parent="UI" unique_id=1275517275]
-offset_left = 177.0
-offset_top = 287.0
-offset_right = 276.0
-offset_bottom = 310.0
+offset_left = 171.00002
+offset_top = 356.0
+offset_right = 270.0
+offset_bottom = 379.0
 scale = Vector2(1.0942631, 1)
 text = "PRESS START"
+
+[node name="PauseUI" type="CanvasLayer" parent="." unique_id=555709328]
+
+[node name="PausePanel" type="ColorRect" parent="PauseUI" unique_id=1531859220]
+oversampling_with_scale = 1
+visibility_layer = 7
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0.8, 1)
+
+[node name="PauseLabel" type="Label" parent="PauseUI/PausePanel" unique_id=1846914375]
+layout_mode = 0
+offset_left = 157.0
+offset_top = 489.0
+offset_right = 287.0
+offset_bottom = 512.0
+text = "JUEGO PAUSADO"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PauseController" type="Node2D" parent="." unique_id=1030171073]
+script = ExtResource("3_h2yge")
 
 [node name="particles" parent="." unique_id=925536109 instance=ExtResource("2_0xm2m")]

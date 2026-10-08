@@ -84,5 +84,5 @@ script = ExtResource("7_85jxm")
 
 [node name="BackgroundMusic" type="AudioStreamPlayer" parent="." unique_id=1705662434]
 stream = ExtResource("8_013ri")
-pitch_scale = 1.06
+pitch_scale = 0.92
 autoplay = true

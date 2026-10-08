@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://dhj5a7o41uv2f"]
+
+[ext_resource type="Script" uid="uid://v01cvqjnfm53" path="res://enemies/enemy.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://c8fslp35w3w4c" path="res://assets/enemies/Yako.png" id="2_7frlh"]
+[ext_resource type="AudioStream" uid="uid://c43gvd5xs6o7q" path="res://assets/sounds/explosion.wav" id="3_orwns"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_enemy"]
+
+[node name="Enemy" type="Area2D" unique_id=1038890946]
+collision_layer = 2
+script = ExtResource("1")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1891657976]
+texture = ExtResource("2_7frlh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1007657861]
+texture_filter = 1
+texture_repeat = 2
+shape = SubResource("CircleShape2D_enemy")
+
+[node name="Body" type="Polygon2D" parent="." unique_id=437126046]
+visible = false
+polygon = PackedVector2Array(-12, 0, -5, -7, 5, -7, 12, 0, 5, 7, -5, 7)
+
+[node name="HitSound" type="AudioStreamPlayer" parent="." unique_id=355507519]
+stream = ExtResource("3_orwns")
+pitch_scale = 4.0

@@ -1,0 +1,8 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://stages/stage_2.tscn" id="1"]
+
+[node name="Stage4" instance=ExtResource("1")]
+stage_number = 4
+attack_interval = 1.1
+max_attacks = 4

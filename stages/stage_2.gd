@@ -169,5 +169,10 @@ func _on_player_destroyed() -> void:
 
 	$HUD.show_game_over()
 
+	print("GAME OVER: mostrando mensaje")
+
+	await get_tree().create_timer(2.0).timeout
+
 	print("GAME OVER: emitiendo señal hacia Main")
+
 	game_over.emit()
