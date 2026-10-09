@@ -83,7 +83,10 @@ func start_game() -> void:
 	load_stage(current_stage)
 
 
-func load_stage(stage_number: int) -> void:
+func load_stage(stage_number: int, previous_score: int = 0, previous_lives: int = 3) -> void:
+	for group in ["player_bullets", "enemy_bullets"]:
+		for bullet in get_tree().get_nodes_in_group(group):
+			bullet.queue_free()
 	if current_stage_node != null:
 		current_stage_node.queue_free()
 		current_stage_node = null
@@ -91,11 +94,17 @@ func load_stage(stage_number: int) -> void:
 	match stage_number:
 		2:
 			current_stage_node = STAGE_2_SCENE.instantiate()
+		3:
+			current_stage_node = STAGE_3_SCENE.instantiate()
+		4:
+			current_stage_node = STAGE_4_SCENE.instantiate()
 		
 		_:
 			print("STAGE NO DISPONIBLE: ", stage_number)
 			return
 	
+	current_stage_node.score = previous_score
+	current_stage_node.starting_lives = previous_lives
 	stage_container.add_child(current_stage_node)
 	
 	# Conectar señal de Stage completado.
@@ -109,11 +118,17 @@ func load_stage(stage_number: int) -> void:
 
 
 func _on_stage_completed() -> void:
+	if current_stage == 4:
+		show_welcome()
+		return
+	var previous_score: int = current_stage_node.score
+	var previous_lives: int = current_stage_node.get_node("Gyaraga").lives
 	print("STAGE COMPLETADO: ", current_stage)
 	
 	current_stage += 1
 	
 	print("SIGUIENTE STAGE: ", current_stage)
+	load_stage(current_stage, previous_score, previous_lives)
 
 
 func _on_game_over() -> void:
