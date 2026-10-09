@@ -91,6 +91,11 @@ func load_stage(stage_number: int) -> void:
 	match stage_number:
 		2:
 			current_stage_node = STAGE_2_SCENE.instantiate()
+		3:
+			current_stage_node = STAGE_3_SCENE.instantiate()
+	
+		4:
+			current_stage_node = STAGE_4_SCENE.instantiate()
 		
 		_:
 			print("STAGE NO DISPONIBLE: ", stage_number)
@@ -114,6 +119,8 @@ func _on_stage_completed() -> void:
 	current_stage += 1
 	
 	print("SIGUIENTE STAGE: ", current_stage)
+	
+	load_stage(current_stage)
 
 
 func _on_game_over() -> void:
