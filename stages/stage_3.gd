@@ -19,10 +19,20 @@ var results_ready := false
 var wave_hits: Array[int] = [0, 0, 0, 0, 0]
 var wave_resolved: Array[int] = [0, 0, 0, 0, 0]
 var sound: AudioStreamPlayer
+@export var enemy_shot_interval := 1.5
+var attack_timer: Timer
+var attack_index := 0
+var failed := false
 
 func _ready() -> void:
 	sound = AudioStreamPlayer.new()
 	add_child(sound)
+	attack_timer = Timer.new()
+	attack_timer.wait_time = enemy_shot_interval
+	attack_timer.timeout.connect(_on_attack_timeout)
+	add_child(attack_timer)
+	$Gyaraga.lives_changed.connect($HUD.update_lives)
+	$Gyaraga.player_destroyed.connect(_on_player_destroyed)
 	$Gyaraga.lives = starting_lives
 	$HUD.update_lives(starting_lives)
 	$HUD.update_score(score)
@@ -31,15 +41,24 @@ func _ready() -> void:
 	$StageLabel.show()
 	play_sound(START_SOUND)
 	await get_tree().create_timer(maxf(2.5, START_SOUND.get_length())).timeout
+	if finished:
+		return
 	$StageLabel.hide()
+	attack_timer.start()
 	for wave in range(5):
+		if finished:
+			return
 		var path := create_flight_path(wave)
 		$HitsLabel.text = "FORMATION %d / 5" % (wave + 1)
 		for index in range(8):
+			if finished:
+				return
 			spawn_enemy(wave, index, path)
 			await get_tree().create_timer(0.18).timeout
 		# Wait for the last survivor to exit; no fixed dead time after early clears.
 		while wave_resolved[wave] < 8:
+			if finished:
+				return
 			await get_tree().process_frame
 		await get_tree().create_timer(0.65).timeout
 
@@ -80,7 +99,52 @@ func play_sound(stream: AudioStream) -> void:
 	sound.stream = stream
 	sound.play()
 
+func _on_attack_timeout() -> void:
+	if finished:
+		return
+	var candidates: Array[Node] = []
+	var player_y: float = $Gyaraga.global_position.y
+	for enemy in $Enemies.get_children():
+		if enemy.is_being_hit or enemy.is_queued_for_deletion():
+			continue
+		var pos: Vector2 = enemy.global_position
+		if pos.x >= 20.0 and pos.x <= 460.0 and pos.y >= 70.0 and pos.y < player_y - 120.0:
+			candidates.append(enemy)
+	if candidates.is_empty():
+		return
+	# Reuse the aimed projectile attack from the normal stages, while retaining flight curves.
+	candidates[attack_index % candidates.size()].shoot()
+	attack_index += 1
+
+func clear_bullets() -> void:
+	for group in ["player_bullets", "enemy_bullets"]:
+		for bullet in get_tree().get_nodes_in_group(group):
+			bullet.queue_free()
+
+func _on_player_destroyed() -> void:
+	if finished:
+		return
+	failed = true
+	finished = true
+	attack_timer.stop()
+	sound.stop()
+	clear_bullets()
+	for enemy in $Enemies.get_children():
+		enemy.set_process(false)
+	$HitsLabel.hide()
+	$StageLabel.modulate = Color.WHITE
+	$StageLabel.text = "GAME OVER"
+	$StageLabel.show()
+	await get_tree().create_timer(2.0).timeout
+	results_ready = true
+	if get_tree().current_scene == self:
+		$StageLabel.text += "\nENTER: RETRY CHALLENGE"
+	else:
+		game_over.emit()
+
 func _on_hit(points: int, wave: int) -> void:
+	if finished:
+		return
 	hits += 1
 	wave_hits[wave] += 1
 	score += points
@@ -91,6 +155,8 @@ func _on_hit(points: int, wave: int) -> void:
 	_resolve_enemy(wave)
 
 func _on_escape(wave: int) -> void:
+	if finished:
+		return
 	_resolve_enemy(wave)
 
 func _resolve_enemy(wave: int) -> void:
@@ -101,10 +167,10 @@ func _resolve_enemy(wave: int) -> void:
 
 func show_results() -> void:
 	finished = true
+	attack_timer.stop()
 	$HitsLabel.hide()
 	$Gyaraga.set_physics_process(false)
-	for bullet in get_tree().get_nodes_in_group("player_bullets"):
-		bullet.queue_free()
+	clear_bullets()
 	$StageLabel.modulate = Color.WHITE
 	$StageLabel.text = "NUMBER OF HITS  %2d" % hits
 	$StageLabel.show()
