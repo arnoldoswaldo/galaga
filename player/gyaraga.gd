@@ -4,9 +4,11 @@ var Bullet = preload("res://bullets/bullet.tscn")
 
 @export var speed := 300.0
 @export var max_lives := 3
+@export var shoot_cooldown := 0.3
 
 var lives := max_lives
 var is_destroyed := false
+var last_shot_msec := -100000
 
 signal lives_changed(current_lives: int)
 signal player_destroyed
@@ -41,7 +43,10 @@ func get_input() -> void:
 func shoot() -> void:
 	if is_destroyed:
 		return
-
+	var now := Time.get_ticks_msec()
+	if now - last_shot_msec < shoot_cooldown * 1000.0:
+		return
+	last_shot_msec = now
 	var b = Bullet.instantiate()
 
 	get_tree().current_scene.add_child(b)

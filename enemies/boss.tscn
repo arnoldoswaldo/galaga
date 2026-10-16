@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://bn35m6rlo8akn"]
+
+[ext_resource type="Script" uid="uid://bebustawm27oc" path="res://enemies/boss.gd" id="1_a60ye"]
+[ext_resource type="Texture2D" uid="uid://5wj71qp2pnru" path="res://assets/enemies/BossGalaga.png" id="2_n18d2"]
+[ext_resource type="AudioStream" uid="uid://dan3vb8m4dwij" path="res://assets/sounds/boss_damage.wav" id="3_nbsx1"]
+[ext_resource type="AudioStream" uid="uid://dmwjn0kxahx5m" path="res://assets/sounds/boss_destroy.wav" id="4_85rbr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_heon2"]
+size = Vector2(40.25, 39.75)
+
+[node name="Boss" type="Area2D" unique_id=239756160 groups=["enemies"]]
+collision_layer = 2
+script = ExtResource("1_a60ye")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=914729170]
+texture_filter = 1
+position = Vector2(0.6549988, 0.32893756)
+scale = Vector2(5.043125, 4.958883)
+texture = ExtResource("2_n18d2")
+region_enabled = true
+region_rect = Rect2(16, 0, 16, 16)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1844770641]
+position = Vector2(0.75, 0.25)
+scale = Vector2(2, 2)
+shape = SubResource("RectangleShape2D_heon2")
+
+[node name="MuzzleLeft" type="Marker2D" parent="." unique_id=1712374507]
+
+[node name="MuzzleCenter" type="Marker2D" parent="." unique_id=995932398]
+
+[node name="MuzzleRight" type="Marker2D" parent="." unique_id=326575335]
+
+[node name="Hitsound" type="AudioStreamPlayer2D" parent="." unique_id=1500544943]
+stream = ExtResource("3_nbsx1")
+
+[node name="DeadSound" type="AudioStreamPlayer2D" parent="." unique_id=275327624]
+stream = ExtResource("4_85rbr")
+
+[node name="AttackTimer" type="Timer" parent="." unique_id=1120814367]
+wait_time = 1.2

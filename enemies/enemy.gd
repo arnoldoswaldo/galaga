@@ -62,8 +62,12 @@ func configure(type: int, formation_pos: Vector2) -> void:
 	global_position = formation_pos
 
 	sprite.texture = enemy_textures[enemy_type]
-	sprite.hframes = 8
-	sprite.vframes = 1
+	if enemy_type==EnemyType.BOSS:
+		sprite.hframes = 7
+		sprite.vframes = 5
+	else:
+		sprite.hframes = 8
+		sprite.vframes = 1
 	sprite.frame = 0
 
 func start_entry(

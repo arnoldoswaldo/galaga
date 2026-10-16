@@ -1,8 +1,60 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://bo10k7vad3i4m"]
 
-[ext_resource type="PackedScene" path="res://stages/stage_2.tscn" id="1"]
+[ext_resource type="Script" uid="uid://cv3408jgx3el3" path="res://stages/stage_4.gd" id="1_as68b"]
+[ext_resource type="PackedScene" uid="uid://bogmtucwfiysn" path="res://player/gyaraga.tscn" id="2"]
+[ext_resource type="PackedScene" uid="uid://bqx2nkkm2fy5w" path="res://ui/hud.tscn" id="3"]
+[ext_resource type="Script" uid="uid://bqiavg8j8tp1u" path="res://ui/hud.gd" id="4"]
+[ext_resource type="PackedScene" uid="uid://bn35m6rlo8akn" path="res://enemies/boss.tscn" id="5_fbrsd"]
 
-[node name="Stage4" instance=ExtResource("1")]
-stage_number = 4
-attack_interval = 1.1
-max_attacks = 4
+[node name="Stage4" type="Node2D" unique_id=891968195]
+script = ExtResource("1_as68b")
+
+[node name="Enemies" type="Node2D" parent="." unique_id=2129164792]
+
+[node name="Gyaraga" parent="." unique_id=1275900450 instance=ExtResource("2")]
+
+[node name="HUD" parent="." unique_id=1589047131 instance=ExtResource("3")]
+script = ExtResource("4")
+
+[node name="ScoreLabel" type="Label" parent="HUD" unique_id=1744291363]
+offset_left = 10.0
+offset_top = 10.0
+text = "SCORE: 0"
+
+[node name="LivesLabel" type="Label" parent="HUD" unique_id=1475387813]
+offset_left = 370.0
+offset_top = 10.0
+text = "LIVES: 3"
+
+[node name="GameOverLabel" type="Label" parent="HUD" unique_id=2115838682]
+visible = false
+text = "GAME OVER"
+
+[node name="StageLabel" type="Label" parent="." unique_id=752090943]
+offset_left = 40.0
+offset_top = 250.0
+offset_right = 440.0
+offset_bottom = 380.0
+text = "STAGE 3"
+horizontal_alignment = 1
+
+[node name="Boss" parent="." unique_id=239756160 instance=ExtResource("5_fbrsd")]
+position = Vector2(240, -40)
+
+[node name="BossUI" type="CanvasLayer" parent="." unique_id=2100288008]
+
+[node name="BossHealthBar" type="ProgressBar" parent="BossUI" unique_id=1957498701]
+anchors_preset = -1
+offset_left = 90.0
+offset_top = 30.0
+offset_right = 390.0
+offset_bottom = 44.0
+show_percentage = false
+
+[node name="BossLabel" type="Label" parent="BossUI" unique_id=450689440]
+offset_left = 120.0
+offset_top = 12.0
+offset_right = 161.0
+offset_bottom = 61.0
+text = "BOSS
+"

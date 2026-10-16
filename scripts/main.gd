@@ -99,7 +99,6 @@ func load_stage(stage_number: int, previous_score: int = 0, previous_lives: int 
 			current_stage_node = STAGE_2_SCENE.instantiate()
 		3:
 			current_stage_node = STAGE_3_SCENE.instantiate()
-
 		4:
 			current_stage_node = STAGE_4_SCENE.instantiate()
 		
