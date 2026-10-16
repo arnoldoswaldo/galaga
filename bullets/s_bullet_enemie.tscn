@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://cgmogoqf257s3"]
+
+[ext_resource type="Script" uid="uid://uxk5w1liue7t" path="res://bullets/s_bullet_enemie.gd" id="1_cef7j"]
+[ext_resource type="Texture2D" uid="uid://bqddnd1yx3m7a" path="res://nice_final.png" id="2_t46lh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_neiy4"]
+size = Vector2(3, 8)
+
+[node name="bullet_enemie" type="Area2D" unique_id=178820080]
+scale = Vector2(2, 2)
+collision_layer = 8
+script = ExtResource("1_cef7j")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=470916380]
+texture = ExtResource("2_t46lh")
+region_enabled = true
+region_rect = Rect2(307, 154, 16, 16)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1652454608]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_neiy4")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

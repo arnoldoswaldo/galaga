@@ -1,3 +1,89 @@
-[gd_scene format=3 uid="uid://ck78nqlffc5iy"]
+[gd_scene format=3 uid="uid://da8buesnwhb26"]
 
-[node name="Stage1" type="Node2D" unique_id=708498134]
+[ext_resource type="Script" uid="uid://bcvb1ovoifafv" path="res://stages/stage_1.gd" id="1_tksfr"]
+[ext_resource type="Script" uid="uid://owvfwv5qm7md" path="res://stages/path_follow_2d.gd" id="2_lugph"]
+[ext_resource type="PackedScene" uid="uid://bogmtucwfiysn" path="res://player/gyaraga.tscn" id="3_sj8rn"]
+[ext_resource type="PackedScene" uid="uid://8hww7jke8dk2" path="res://particles/particles.tscn" id="4_18igh"]
+[ext_resource type="PackedScene" uid="uid://bqx2nkkm2fy5w" path="res://ui/hud.tscn" id="5_o4n7p"]
+[ext_resource type="Script" uid="uid://bqiavg8j8tp1u" path="res://ui/hud.gd" id="6_p7cgj"]
+[ext_resource type="Script" uid="uid://c785s4c383qrv" path="res://stages/attack_timer.gd" id="7_43q35"]
+[ext_resource type="AudioStream" uid="uid://b72s6xwpou277" path="res://assets/sounds/start.wav" id="8_1fhdr"]
+
+[sub_resource type="Curve2D" id="Curve2D_85jxm"]
+
+[node name="Stage1" type="Node2D" unique_id=221879084]
+script = ExtResource("1_tksfr")
+
+[node name="Enemies" type="Node2D" parent="." unique_id=763049619]
+position = Vector2(215, -126)
+
+[node name="EnemyPath_1" type="Path2D" parent="Enemies" unique_id=1130477719]
+curve = SubResource("Curve2D_85jxm")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Enemies/EnemyPath_1" unique_id=1710548748]
+texture_filter = 1
+position = Vector2(-69, 75)
+script = ExtResource("2_lugph")
+
+[node name="StageLabel" type="Label" parent="." unique_id=1680095748]
+offset_left = 73.0
+offset_top = 237.0
+offset_right = 273.0
+offset_bottom = 260.0
+text = "Stage 2"
+horizontal_alignment = 1
+vertical_alignment = 1
+clip_text = true
+
+[node name="Gyaraga" parent="." unique_id=461259849 instance=ExtResource("3_sj8rn")]
+position = Vector2(210, 463.00003)
+collision_mask = 9
+
+[node name="particles" parent="." unique_id=925536109 instance=ExtResource("4_18igh")]
+position = Vector2(-26, 24)
+
+[node name="HUD" parent="." unique_id=1557569576 instance=ExtResource("5_o4n7p")]
+script = ExtResource("6_p7cgj")
+
+[node name="ScoreLabel" type="Label" parent="HUD" unique_id=455184647]
+custom_minimum_size = Vector2(20, 15)
+offset_left = 7.0
+offset_top = 1.0
+offset_right = 76.0
+offset_bottom = 24.0
+text = "SCORE: 0"
+
+[node name="Control" type="Control" parent="HUD" unique_id=463544063]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="LivesLabel" type="Label" parent="HUD" unique_id=1308700746]
+custom_minimum_size = Vector2(560, 15)
+offset_left = 367.0
+offset_top = -1.0
+offset_right = 927.0
+offset_bottom = 22.0
+text = "LIVES: 3"
+
+[node name="GameOverLabel" type="Label" parent="HUD" unique_id=1119112322]
+visible = false
+offset_left = 229.0
+offset_top = 248.0
+offset_right = 321.0
+offset_bottom = 271.0
+text = "!! GAME OVER !!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AttackTimer" type="Timer" parent="." unique_id=851024081]
+wait_time = 2.0
+script = ExtResource("7_43q35")
+
+[node name="BackgroundMusic" type="AudioStreamPlayer" parent="." unique_id=1705662434]
+stream = ExtResource("8_1fhdr")
+pitch_scale = 0.92
+autoplay = true
+max_polyphony = 65

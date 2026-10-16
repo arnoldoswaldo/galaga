@@ -1,6 +1,7 @@
 
 extends Node2D
 
+const STAGE_1_SCENE := preload("res://stages/stage_1.tscn")
 const STAGE_2_SCENE := preload("res://stages/stage_2.tscn")
 const STAGE_3_SCENE := preload("res://stages/stage_3.tscn")
 const STAGE_4_SCENE := preload("res://stages/stage_4.tscn")
@@ -75,7 +76,7 @@ func start_game() -> void:
 	# Una nueva partida siempre comienza despausada.
 	get_tree().paused = false
 	
-	current_stage = 2
+	current_stage = 1
 	
 	welcome_ui.hide()
 	stage_container.show()
@@ -92,6 +93,8 @@ func load_stage(stage_number: int, previous_score: int = 0, previous_lives: int 
 		current_stage_node = null
 	
 	match stage_number:
+		1:
+			current_stage_node = STAGE_1_SCENE.instantiate()
 		2:
 			current_stage_node = STAGE_2_SCENE.instantiate()
 		3:
