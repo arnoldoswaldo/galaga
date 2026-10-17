@@ -1,4 +1,4 @@
-# Galaga — Videojuego 
+# Galaga 
 
 ## Descripción
 
